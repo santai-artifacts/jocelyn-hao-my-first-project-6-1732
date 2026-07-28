@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meow — A Love Letter to Cats</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #fdf8f3;
+      --warm-white: #fffcf8;
+      --sand: #e8ddd0;
+      --tan: #c9b89a;
+      --brown: #7a5c3e;
+      --dark: #2a1f14;
+      --accent: #d4855a;
+      --accent-light: #f0cdb8;
+      --accent-dark: #b3633a;
+      --text: #3d2e1e;
+      --muted: #8a7060;
+      --radius: 16px;
+      --shadow: 0 4px 24px rgba(42,31,20,0.10);
+      --shadow-lg: 0 12px 48px rgba(42,31,20,0.15);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 clamp(1.5rem, 5vw, 4rem);
+      height: 64px;
+      background: rgba(253,248,243,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201,184,154,0.3);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+
+    .nav-links {
+      display: flex; gap: 2rem; list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 80px clamp(1.5rem, 8vw, 8rem) 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 70% 50%, #f5e6d8 0%, transparent 70%),
+                  radial-gradient(ellipse 60% 80% at 20% 80%, #ede0d0 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative; z-index: 1;
+      max-width: 600px;
+    }
+
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--accent-light);
+      color: var(--accent-dark);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.9rem;
+      border-radius: 100px;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      line-height: 1.1;
+      color: var(--dark);
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--muted);
+      max-width: 480px;
+      margin-bottom: 2.5rem;
+      line-height: 1.7;
+    }
+
+    .hero-cta {
+      display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;
+    }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.8rem 1.75rem;
+      border-radius: 100px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(212,133,90,0.4);
+    }
+    .btn-primary:hover {
+      background: var(--accent-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(212,133,90,0.45);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 2px solid var(--sand);
+    }
+    .btn-ghost:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .hero-visual {
+      position: absolute; right: clamp(2rem, 8vw, 8rem); top: 50%;
+      transform: translateY(-50%);
+      font-size: clamp(8rem, 18vw, 16rem);
+      pointer-events: none;
+      filter: drop-shadow(0 8px 40px rgba(212,133,90,0.25));
+      animation: float 6s ease-in-out infinite;
+      user-select: none;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(-50%) translateY(0); }
+      50% { transform: translateY(-50%) translateY(-20px); }
+    }
+
+    /* STATS */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1.5rem;
+      padding: 3rem clamp(1.5rem, 8vw, 8rem);
+      background: var(--dark);
+    }
+
+    .stat {
+      text-align: center;
+      padding: 1.5rem;
+    }
+
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.04em;
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 6rem clamp(1.5rem, 8vw, 8rem);
+    }
+
+    .section-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.2;
+      color: var(--dark);
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .section-desc {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 540px;
+      line-height: 1.75;
+    }
+
+    /* BREEDS */
+    #breeds { background: var(--warm-white); }
+
+    .breeds-header {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      flex-wrap: wrap; gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .breed-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .breed-card {
+      background: var(--cream);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: default;
+    }
+
+    .breed-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .breed-img {
+      height: 200px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 6rem;
+      user-select: none;
+    }
+
+    .breed-body { padding: 1.25rem 1.5rem 1.5rem; }
+
+    .breed-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      color: var(--dark);
+      margin-bottom: 0.25rem;
+    }
+
+    .breed-origin {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .breed-desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 1rem;
+    }
+
+    .breed-traits {
+      display: flex; gap: 0.5rem; flex-wrap: wrap;
+    }
+
+    .trait {
+      background: var(--accent-light);
+      color: var(--accent-dark);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.25rem 0.65rem;
+      border-radius: 100px;
+    }
+
+    /* FACTS */
+    #facts {
+      background: linear-gradient(135deg, #2a1f14 0%, #3d2e1e 100%);
+      position: relative; overflow: hidden;
+    }
+
+    #facts::before {
+      content: '🐾';
+      position: absolute; right: 5%; top: 10%;
+      font-size: 18rem;
+      opacity: 0.04;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    #facts .section-title { color: #fff; }
+    #facts .section-label { color: var(--accent); }
+    #facts .section-desc { color: rgba(255,255,255,0.55); }
+
+    .facts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.25rem;
+      margin-top: 3rem;
+    }
+
+    .fact-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      display: flex; gap: 1rem; align-items: flex-start;
+      transition: background 0.2s;
+    }
+
+    .fact-card:hover { background: rgba(255,255,255,0.1); }
+
+    .fact-icon {
+      font-size: 1.75rem;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+
+    .fact-text {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.65;
+    }
+
+    /* CARE */
+    #care { background: var(--cream); }
+
+    .care-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .care-card {
+      background: var(--warm-white);
+      border: 1px solid var(--sand);
+      border-radius: var(--radius);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .care-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+    }
+
+    .care-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .care-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      color: var(--dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .care-text {
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* QUIZ */
+    #quiz { background: var(--warm-white); }
+
+    .quiz-wrap {
+      max-width: 680px;
+      margin: 3rem auto 0;
+    }
+
+    .quiz-card {
+      background: var(--cream);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      box-shadow: var(--shadow);
+    }
+
+    .quiz-q {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      color: var(--dark);
+      margin-bottom: 1.75rem;
+      line-height: 1.4;
+    }
+
+    .quiz-options {
+      display: grid; gap: 0.75rem;
+    }
+
+    .quiz-opt {
+      background: var(--warm-white);
+      border: 2px solid var(--sand);
+      border-radius: 10px;
+      padding: 0.9rem 1.25rem;
+      text-align: left;
+      font-size: 0.95rem;
+      color: var(--text);
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+
+    .quiz-opt:hover { border-color: var(--accent); background: var(--accent-light); }
+    .quiz-opt.correct { border-color: #4caf50; background: #e8f5e9; color: #2e7d32; }
+    .quiz-opt.wrong { border-color: #f44336; background: #ffebee; color: #c62828; }
+
+    .quiz-feedback {
+      margin-top: 1.25rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+      min-height: 1.4em;
+      color: var(--muted);
+    }
+
+    .quiz-nav {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: 1.75rem;
+    }
+
+    .quiz-progress {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .quiz-score {
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    /* GALLERY */
+    #gallery { background: var(--dark); }
+    #gallery .section-title { color: #fff; }
+    #gallery .section-label { color: var(--accent); }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, 220px);
+      gap: 1rem;
+      margin-top: 3rem;
+    }
+
+    .gallery-item {
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 5rem;
+      cursor: pointer;
+      transition: transform 0.3s;
+      user-select: none;
+    }
+
+    .gallery-item:hover { transform: scale(1.03); }
+    .gallery-item:nth-child(1) { grid-column: 1 / 3; background: linear-gradient(135deg, #3d2e1e, #5c4130); }
+    .gallery-item:nth-child(2) { background: linear-gradient(135deg, #4a3520, #6b4c2a); }
+    .gallery-item:nth-child(3) { background: linear-gradient(135deg, #2e2218, #4a3520); }
+    .gallery-item:nth-child(4) { grid-row: 1 / 3; background: linear-gradient(135deg, #5c3820, #8a5230); font-size: 7rem; }
+    .gallery-item:nth-child(5) { background: linear-gradient(135deg, #3a2a18, #5a4025); }
+    .gallery-item:nth-child(6) { grid-column: 2 / 4; background: linear-gradient(135deg, #4d3522, #7a5235); }
+
+    .gallery-overlay {
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,0);
+      display: flex; align-items: flex-end;
+      padding: 1rem;
+      transition: background 0.3s;
+    }
+
+    .gallery-item:hover .gallery-overlay { background: rgba(0,0,0,0.35); }
+
+    .gallery-label {
+      color: rgba(255,255,255,0);
+      font-size: 0.875rem;
+      font-weight: 600;
+      transition: color 0.3s;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .gallery-item:hover .gallery-label { color: #fff; }
+
+    /* FOOTER */
+    footer {
+      background: var(--dark);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 3rem clamp(1.5rem, 8vw, 8rem);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+    }
+
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--accent);
+    }
+
+    .footer-text {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* SCROLL ANIMATION */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .hero-visual { display: none; }
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto;
+      }
+      .gallery-item { grid-column: auto !important; grid-row: auto !important; height: 160px; font-size: 3.5rem !important; }
+      nav .nav-links { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-visual { animation: none; }
+      .reveal { transition: none; opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Meow</a>
+  <ul class="nav-links">
+    <li><a href="#breeds">Breeds</a></li>
+    <li><a href="#facts">Facts</a></li>
+    <li><a href="#care">Care</a></li>
+    <li><a href="#quiz">Quiz</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-tag">🐾 For cat lovers</div>
+    <h1>The world belongs to <em>cats</em>.</h1>
+    <p>Mysterious, graceful, endlessly entertaining — discover everything you love (and don't yet know) about our feline companions.</p>
+    <div class="hero-cta">
+      <a href="#breeds" class="btn btn-primary">Explore Breeds</a>
+      <a href="#quiz" class="btn btn-ghost">Take the Quiz</a>
+    </div>
+  </div>
+  <div class="hero-visual">🐱</div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat reveal">
+    <div class="stat-num">600M+</div>
+    <div class="stat-label">Domestic cats worldwide</div>
+  </div>
+  <div class="stat reveal">
+    <div class="stat-num">70+</div>
+    <div class="stat-label">Recognized breeds</div>
+  </div>
+  <div class="stat reveal">
+    <div class="stat-num">9,500</div>
+    <div class="stat-label">Years of domestication</div>
+  </div>
+  <div class="stat reveal">
+    <div class="stat-num">100+</div>
+    <div class="stat-label">Distinct vocalizations</div>
+  </div>
+</div>
+
+<!-- BREEDS -->
+<section id="breeds">
+  <div class="breeds-header">
+    <div>
+      <div class="section-label reveal">Popular Breeds</div>
+      <h2 class="section-title reveal">Meet the cats</h2>
+      <p class="section-desc reveal">From fluffy giants to sleek aristocrats — every breed has its own magic.</p>
+    </div>
+  </div>
+  <div class="breed-grid" id="breed-grid"></div>
+</section>
+
+<!-- FACTS -->
+<section id="facts">
+  <div class="section-label reveal">Did You Know?</div>
+  <h2 class="section-title reveal">Fascinating feline facts</h2>
+  <p class="section-desc reveal">Science, history, and pure cat weirdness — all in one place.</p>
+  <div class="facts-grid" id="facts-grid"></div>
+</section>
+
+<!-- CARE -->
+<section id="care">
+  <div class="section-label reveal">Cat Care 101</div>
+  <h2 class="section-title reveal">Keep your cat thriving</h2>
+  <p class="section-desc reveal">Happy cats are healthy cats. Here's what they need from you.</p>
+  <div class="care-grid" id="care-grid"></div>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz">
+  <div style="text-align:center">
+    <div class="section-label reveal">Test Your Knowledge</div>
+    <h2 class="section-title reveal">How much do you know about cats?</h2>
+    <p class="section-desc reveal" style="margin: 0 auto 0">Answer five questions and find out.</p>
+  </div>
+  <div class="quiz-wrap">
+    <div class="quiz-card reveal" id="quiz-card">
+      <div class="quiz-q" id="quiz-q"></div>
+      <div class="quiz-options" id="quiz-options"></div>
+      <div class="quiz-feedback" id="quiz-feedback"></div>
+      <div class="quiz-nav">
+        <div class="quiz-progress">Question <span id="quiz-num">1</span> of 5</div>
+        <div class="quiz-score">Score: <span id="quiz-score">0</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="section-label reveal">Gallery</div>
+  <h2 class="section-title reveal">Cats in all their glory</h2>
+  <div class="gallery-grid reveal">
+    <div class="gallery-item"><span>🐱</span><div class="gallery-overlay"><span class="gallery-label">Tabby kitten</span></div></div>
+    <div class="gallery-item"><span>🦁</span><div class="gallery-overlay"><span class="gallery-label">Maine Coon</span></div></div>
+    <div class="gallery-item"><span>🐈‍⬛</span><div class="gallery-overlay"><span class="gallery-label">Black cat</span></div></div>
+    <div class="gallery-item"><span>😸</span><div class="gallery-overlay"><span class="gallery-label">Scottish Fold</span></div></div>
+    <div class="gallery-item"><span>🐾</span><div class="gallery-overlay"><span class="gallery-label">Paw prints</span></div></div>
+    <div class="gallery-item"><span>🐆</span><div class="gallery-overlay"><span class="gallery-label">Egyptian Mau</span></div></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Meow</div>
+  <div class="footer-text">Made with 🐾 for cat lovers everywhere · 2026</div>
+</footer>
+
+<script>
+  // --- DATA ---
+  const breeds = [
+    { emoji: '🐱', name: 'Siamese', origin: 'Thailand', desc: 'Vocal and sociable with striking blue eyes and elegant color-point markings. One of the oldest recognized breeds.', traits: ['Vocal', 'Affectionate', 'Intelligent'] },
+    { emoji: '🦁', name: 'Maine Coon', origin: 'United States', desc: 'One of the largest domestic cat breeds, known for tufted ears, bushy tails, and a gentle, dog-like temperament.', traits: ['Playful', 'Gentle', 'Loves water'] },
+    { emoji: '😸', name: 'Scottish Fold', origin: 'Scotland', desc: 'Recognized by folded ears that give an owl-like look. Sweet-natured and adapt well to family life.', traits: ['Calm', 'Adaptable', 'Quiet'] },
+    { emoji: '🐈‍⬛', name: 'Bombay', origin: 'United States', desc: 'A miniature panther with gleaming black fur and copper eyes. Playful, mischievous, and loves human company.', traits: ['Social', 'Mischievous', 'Energetic'] },
+    { emoji: '🐆', name: 'Egyptian Mau', origin: 'Egypt', desc: 'The only naturally spotted domestic breed. Lightning-fast, fiercely loyal, and carries millennia of history.', traits: ['Athletic', 'Loyal', 'Spotted'] },
+    { emoji: '🍞', name: 'Ragdoll', origin: 'United States', desc: 'Goes limp when picked up — hence the name. Docile, blue-eyed giants who follow you from room to room.', traits: ['Docile', 'Cuddly', 'Trusting'] },
+  ];
+
+  const facts = [
+    { icon: '😴', text: 'Cats sleep 13–16 hours a day — that\'s roughly 70% of their lives devoted to napping.' },
+    { icon: '👂', text: 'Each ear has 32 muscles, letting cats rotate them 180° independently to pinpoint sounds.' },
+    { icon: '👃', text: 'A cat\'s nose print is as unique as a human fingerprint — no two are identical.' },
+    { icon: '🐯', text: 'House cats share 95.6% of their DNA with tigers. The resemblance is more than cosmetic.' },
+    { icon: '🦴', text: 'A cat\'s purr vibrates at 25–150 Hz — a frequency known to promote bone healing and reduce stress.' },
+    { icon: '🐾', text: 'Cats walk like camels and giraffes: they move both right feet first, then both left feet.' },
+    { icon: '💬', text: 'Cats developed the "meow" specifically to communicate with humans. They rarely meow at other cats.' },
+    { icon: '🌍', text: 'The oldest known pet cat was buried alongside a human in Cyprus 9,500 years ago.' },
+    { icon: '🦘', text: 'Cats can jump up to 6× their own body length in a single bound.' },
+    { icon: '👁️', text: 'Cats have a third eyelid (nictitating membrane) that slides across for extra eye protection.' },
+  ];
+
+  const care = [
+    { icon: '🥩', title: 'Balanced Nutrition', text: 'High-protein diet rich in taurine. Fresh water always. Avoid onions, grapes, and chocolate.' },
+    { icon: '🏥', title: 'Vet Checkups', text: 'Annual wellness visits, vaccinations, and dental cleanings keep small problems from becoming big ones.' },
+    { icon: '🪥', title: 'Grooming', text: 'Brush regularly to reduce hairballs. Trim nails every 2–3 weeks. Clean ears gently as needed.' },
+    { icon: '🧸', title: 'Enrichment', text: 'Wand toys, puzzle feeders, window perches, and cat trees keep minds sharp and bodies fit.' },
+    { icon: '🏠', title: 'Safe Space', text: 'Every cat needs a quiet retreat. A cozy bed or high perch where they feel completely secure.' },
+    { icon: '❤️', title: 'Love & Patience', text: 'Respect their boundaries. Let them come to you. Trust takes time — and it\'s always worth it.' },
+  ];
+
+  const quiz = [
+    { q: 'How many hours a day do cats typically sleep?', opts: ['4–6 hours', '8–10 hours', '13–16 hours', '20+ hours'], ans: 2, explain: 'Cats are true champions of sleep — 13 to 16 hours a day is perfectly normal!' },
+    { q: 'What is a group of cats called?', opts: ['A pack', 'A clowder', 'A pride', 'A colony'], ans: 1, explain: 'A group of cats is called a clowder. A group of kittens is called a kindle.' },
+    { q: 'Which breed is known for going limp when picked up?', opts: ['Maine Coon', 'Siamese', 'Ragdoll', 'Abyssinian'], ans: 2, explain: 'Ragdolls are famous for going completely relaxed (limp) when held — hence the name.' },
+    { q: 'How many muscles does a cat\'s ear contain?', opts: ['12', '20', '32', '48'], ans: 2, explain: '32 muscles per ear! That\'s what lets cats rotate each ear 180° independently.' },
+    { q: 'What percentage of their DNA do house cats share with tigers?', opts: ['75.6%', '85.4%', '90.1%', '95.6%'], ans: 3, explain: 'House cats share 95.6% of their DNA with tigers — they\'re basically tiny wild cats.' },
+  ];
+
+  // --- RENDER ---
+  document.getElementById('breed-grid').innerHTML = breeds.map(b => `
+    <div class="breed-card reveal">
+      <div class="breed-img" style="background:linear-gradient(135deg,#f5ece0,#ede0d0)">${b.emoji}</div>
+      <div class="breed-body">
+        <div class="breed-name">${b.name}</div>
+        <div class="breed-origin">${b.origin}</div>
+        <div class="breed-desc">${b.desc}</div>
+        <div class="breed-traits">${b.traits.map(t => `<span class="trait">${t}</span>`).join('')}</div>
+      </div>
+    </div>
+  `).join('');
+
+  document.getElementById('facts-grid').innerHTML = facts.map(f => `
+    <div class="fact-card reveal">
+      <span class="fact-icon">${f.icon}</span>
+      <span class="fact-text">${f.text}</span>
+    </div>
+  `).join('');
+
+  document.getElementById('care-grid').innerHTML = care.map(c => `
+    <div class="care-card reveal">
+      <span class="care-icon">${c.icon}</span>
+      <div class="care-title">${c.title}</div>
+      <div class="care-text">${c.text}</div>
+    </div>
+  `).join('');
+
+  // --- QUIZ ---
+  let qIndex = 0, score = 0, answered = false;
+
+  function renderQuiz() {
+    const q = quiz[qIndex];
+    document.getElementById('quiz-q').textContent = q.q;
+    document.getElementById('quiz-num').textContent = qIndex + 1;
+    document.getElementById('quiz-score').textContent = score;
+    document.getElementById('quiz-feedback').textContent = '';
+    answered = false;
+    document.getElementById('quiz-options').innerHTML = q.opts.map((o, i) =>
+      `<button class="quiz-opt" onclick="answer(${i})">${o}</button>`
+    ).join('');
+  }
+
+  function answer(i) {
+    if (answered) return;
+    answered = true;
+    const q = quiz[qIndex];
+    const btns = document.querySelectorAll('.quiz-opt');
+    btns[i].classList.add(i === q.ans ? 'correct' : 'wrong');
+    btns[q.ans].classList.add('correct');
+    btns.forEach(b => b.disabled = true);
+    if (i === q.ans) score++;
+    document.getElementById('quiz-feedback').textContent = q.explain;
+    document.getElementById('quiz-score').textContent = score;
+
+    setTimeout(() => {
+      qIndex++;
+      if (qIndex < quiz.length) {
+        renderQuiz();
+      } else {
+        const pct = Math.round(score / quiz.length * 100);
+        const msg = pct === 100 ? '🏆 Perfect score! You\'re a true cat expert.' :
+                    pct >= 60 ? '😺 Great job! You know your cats well.' :
+                    '🐾 Keep learning — every cat has more to teach!';
+        document.getElementById('quiz-card').innerHTML = `
+          <div style="text-align:center;padding:1rem 0">
+            <div style="font-size:4rem;margin-bottom:1rem">${pct === 100 ? '🏆' : pct >= 60 ? '😸' : '🐱'}</div>
+            <div class="breed-name" style="font-size:2rem;margin-bottom:.5rem">${score}/${quiz.length}</div>
+            <div style="color:var(--muted);margin-bottom:1.5rem">${msg}</div>
+            <button class="btn btn-primary" onclick="restartQuiz()">Try Again</button>
+          </div>`;
+      }
+    }, 1600);
+  }
+
+  function restartQuiz() {
+    qIndex = 0; score = 0;
+    document.getElementById('quiz-card').innerHTML = `
+      <div class="quiz-q" id="quiz-q"></div>
+      <div class="quiz-options" id="quiz-options"></div>
+      <div class="quiz-feedback" id="quiz-feedback"></div>
+      <div class="quiz-nav">
+        <div class="quiz-progress">Question <span id="quiz-num">1</span> of 5</div>
+        <div class="quiz-score">Score: <span id="quiz-score">0</span></div>
+      </div>`;
+    renderQuiz();
+  }
+
+  renderQuiz();
+
+  // --- SCROLL REVEAL ---
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
