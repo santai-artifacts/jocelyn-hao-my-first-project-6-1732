@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Reading Corner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #FAF7F2;
+      --cream-dark: #F0E9DE;
+      --parchment: #E8DDD0;
+      --brown-deep: #2C1810;
+      --brown-mid: #5C3D2E;
+      --brown-warm: #8B5E3C;
+      --gold: #C9963B;
+      --gold-light: #E6C17A;
+      --green-sage: #4A5E45;
+      --text-body: #3D2B1F;
+      --text-muted: #7A6458;
+      --text-light: #A89080;
+      --white: #FFFEFB;
+      --shadow-sm: 0 2px 8px rgba(44,24,16,0.08);
+      --shadow-md: 0 4px 20px rgba(44,24,16,0.12);
+      --shadow-lg: 0 8px 40px rgba(44,24,16,0.16);
+      --radius: 4px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Lora', Georgia, serif;
+      background-color: var(--cream);
+      color: var(--text-body);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--brown-deep);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-style: italic;
+      color: var(--gold-light);
+      letter-spacing: 0.02em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Lora', serif;
+      font-size: 0.85rem;
+      color: var(--parchment);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.85;
+      transition: opacity 0.2s, color 0.2s;
+    }
+
+    .nav-links a:hover { opacity: 1; color: var(--gold-light); }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--brown-deep);
+      padding: 5rem 2rem 6rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(201,150,59,0.15) 0%, transparent 70%);
+    }
+
+    .hero-ornament {
+      font-size: 1.4rem;
+      color: var(--gold);
+      letter-spacing: 0.4em;
+      margin-bottom: 1.5rem;
+      display: block;
+      opacity: 0.7;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 700;
+      color: var(--cream);
+      line-height: 1.15;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+
+    .hero-tagline {
+      font-family: 'Lora', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--text-light);
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    .hero-divider {
+      margin: 2.5rem auto 0;
+      width: 80px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+    }
+
+    /* ── SECTION WRAPPER ── */
+    section { padding: 4.5rem 2rem; }
+
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.6rem;
+      font-family: 'Lora', serif;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      font-weight: 600;
+      color: var(--brown-deep);
+      line-height: 1.2;
+    }
+
+    .section-subtitle {
+      margin-top: 0.75rem;
+      color: var(--text-muted);
+      font-style: italic;
+      font-size: 0.95rem;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .ornament-line {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 1.2rem auto 0;
+      max-width: 200px;
+      justify-content: center;
+    }
+
+    .ornament-line::before,
+    .ornament-line::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--parchment);
+    }
+
+    .ornament-diamond {
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      transform: rotate(45deg);
+      flex-shrink: 0;
+    }
+
+    /* ── CURRENTLY READING ── */
+    #reading {
+      background: var(--brown-deep);
+      position: relative;
+      overflow: hidden;
+    }
+
+    #reading::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='1' height='40' x='20' fill='%23ffffff' opacity='0.02'/%3E%3Crect width='40' height='1' y='20' fill='%23ffffff' opacity='0.02'/%3E%3C/svg%3E");
+    }
+
+    #reading .section-label { color: var(--gold-light); }
+    #reading .section-title { color: var(--cream); }
+    #reading .section-subtitle { color: var(--text-light); }
+    #reading .ornament-line::before,
+    #reading .ornament-line::after { background: rgba(255,255,255,0.15); }
+
+    .reading-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .reading-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(201,150,59,0.25);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      display: flex;
+      gap: 1.25rem;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .reading-card:hover {
+      border-color: rgba(201,150,59,0.55);
+      background: rgba(255,255,255,0.08);
+    }
+
+    .book-spine {
+      width: 54px;
+      height: 80px;
+      border-radius: 2px 4px 4px 2px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.6rem;
+      font-family: 'Playfair Display', serif;
+      color: rgba(255,255,255,0.85);
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      transform: rotate(180deg);
+      letter-spacing: 0.1em;
+      padding: 0.5rem 0.25rem;
+      text-align: center;
+      box-shadow: 3px 0 8px rgba(0,0,0,0.3), inset -2px 0 4px rgba(0,0,0,0.2);
+    }
+
+    .reading-info { flex: 1; }
+
+    .reading-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.6rem;
+    }
+
+    .reading-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .reading-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--cream);
+      margin-bottom: 0.2rem;
+      line-height: 1.3;
+    }
+
+    .reading-author {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      margin-bottom: 0.8rem;
+    }
+
+    .progress-bar-wrap {
+      background: rgba(255,255,255,0.1);
+      border-radius: 999px;
+      height: 4px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(to right, var(--gold), var(--gold-light));
+      border-radius: 999px;
+      transition: width 0.6s ease;
+    }
+
+    .progress-label {
+      font-size: 0.72rem;
+      color: var(--text-light);
+      margin-top: 0.4rem;
+    }
+
+    /* ── BOOK REVIEWS ── */
+    #reviews { background: var(--cream); }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .review-card {
+      background: var(--white);
+      border: 1px solid var(--parchment);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.25s, box-shadow 0.25s;
+      cursor: pointer;
+    }
+
+    .review-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .review-card-cover {
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cover-book {
+      width: 100px;
+      height: 148px;
+      border-radius: 2px 6px 6px 2px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 1rem 0.75rem;
+      box-shadow: 6px 6px 20px rgba(0,0,0,0.35), inset -3px 0 8px rgba(0,0,0,0.2);
+      position: relative;
+    }
+
+    .cover-book::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 14px;
+      background: rgba(0,0,0,0.2);
+      border-radius: 2px 0 0 2px;
+    }
+
+    .cover-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.9);
+      text-align: center;
+      line-height: 1.3;
+      font-weight: 600;
+    }
+
+    .review-card-body { padding: 1.5rem; }
+
+    .genre-tag {
+      display: inline-block;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      margin-bottom: 0.75rem;
+      font-family: 'Lora', serif;
+    }
+
+    .review-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--brown-deep);
+      line-height: 1.25;
+      margin-bottom: 0.25rem;
+    }
+
+    .review-author {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-bottom: 0.75rem;
+    }
+
+    .star-rating {
+      display: flex;
+      gap: 2px;
+      margin-bottom: 0.85rem;
+    }
+
+    .star { font-size: 0.9rem; }
+    .star.filled { color: var(--gold); }
+    .star.half { color: var(--gold); opacity: 0.6; }
+    .star.empty { color: var(--parchment); }
+
+    .review-excerpt {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.75;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .read-more {
+      display: inline-block;
+      margin-top: 1rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--brown-warm);
+      text-decoration: none;
+      border-bottom: 1px solid var(--gold);
+      padding-bottom: 1px;
+      transition: color 0.2s;
+    }
+
+    .read-more:hover { color: var(--gold); }
+
+    /* ── FAVORITES ── */
+    #favorites { background: var(--cream-dark); }
+
+    .shelf {
+      background: var(--brown-mid);
+      border-radius: var(--radius);
+      padding: 2.5rem 2.5rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .shelf::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 18px;
+      background: var(--brown-deep);
+      border-top: 3px solid #1a0e09;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    }
+
+    .shelf-books {
+      display: flex;
+      align-items: flex-end;
+      gap: 0.5rem;
+      padding-bottom: 18px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .shelf-books::-webkit-scrollbar { display: none; }
+
+    .shelf-book {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      transition: transform 0.2s;
+      flex-shrink: 0;
+    }
+
+    .shelf-book:hover { transform: translateY(-8px); }
+
+    .shelf-book-spine {
+      border-radius: 2px 3px 3px 2px;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      transform: rotate(180deg);
+      font-family: 'Playfair Display', serif;
+      font-size: 0.55rem;
+      color: rgba(255,255,255,0.9);
+      letter-spacing: 0.12em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem 0.4rem;
+      box-shadow: 3px 0 8px rgba(0,0,0,0.4), inset -2px 0 5px rgba(0,0,0,0.25);
+      font-weight: 600;
+    }
+
+    .favorites-info {
+      margin-top: 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .fav-card {
+      background: var(--white);
+      border: 1px solid var(--parchment);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .fav-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--parchment);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .fav-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--brown-deep);
+      line-height: 1.3;
+      margin-bottom: 0.2rem;
+    }
+
+    .fav-author {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-bottom: 0.5rem;
+    }
+
+    .fav-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ── TBR ── */
+    #tbr { background: var(--cream); }
+
+    .tbr-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    .tbr-item {
+      background: var(--white);
+      border: 1px solid var(--parchment);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      box-shadow: var(--shadow-sm);
+      transition: border-left-color 0.2s, transform 0.2s;
+    }
+
+    .tbr-item:hover {
+      border-left-color: var(--brown-warm);
+      transform: translateX(3px);
+    }
+
+    .tbr-check {
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid var(--parchment);
+      border-radius: 2px;
+      flex-shrink: 0;
+      margin-top: 3px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .tbr-check:hover { border-color: var(--gold); }
+    .tbr-check.checked { background: var(--green-sage); border-color: var(--green-sage); }
+
+    .tbr-info { flex: 1; }
+
+    .tbr-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--brown-deep);
+      line-height: 1.3;
+      margin-bottom: 0.15rem;
+    }
+
+    .tbr-author {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-bottom: 0.3rem;
+    }
+
+    .tbr-genre {
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-light);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--brown-deep);
+      color: var(--text-light);
+      text-align: center;
+      padding: 3rem 2rem;
+    }
+
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-style: italic;
+      color: var(--gold-light);
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-tagline {
+      font-size: 0.82rem;
+      font-style: italic;
+      color: var(--text-light);
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-divider {
+      width: 60px;
+      height: 1px;
+      background: rgba(201,150,59,0.4);
+      margin: 1.5rem auto;
+    }
+
+    .footer-copy {
+      font-size: 0.75rem;
+      opacity: 0.5;
+    }
+
+    /* ── MODAL OVERLAY ── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(44,24,16,0.7);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      backdrop-filter: blur(4px);
+    }
+
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+
+    .modal {
+      background: var(--white);
+      border-radius: var(--radius);
+      max-width: 540px;
+      width: 100%;
+      padding: 2.5rem;
+      box-shadow: var(--shadow-lg);
+      transform: translateY(20px);
+      transition: transform 0.3s;
+      position: relative;
+      max-height: 85vh;
+      overflow-y: auto;
+    }
+
+    .modal-overlay.open .modal { transform: translateY(0); }
+
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.4rem;
+      color: var(--text-light);
+      line-height: 1;
+    }
+
+    .modal-close:hover { color: var(--brown-deep); }
+
+    .modal-genre {
+      display: inline-block;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+      font-family: 'Lora', serif;
+    }
+
+    .modal-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--brown-deep);
+      line-height: 1.2;
+      margin-bottom: 0.3rem;
+    }
+
+    .modal-author {
+      font-style: italic;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .modal-stars { display: flex; gap: 3px; margin-bottom: 1.25rem; }
+    .modal-stars .star { font-size: 1.1rem; }
+
+    .modal-body {
+      font-size: 0.92rem;
+      color: var(--text-body);
+      line-height: 1.85;
+    }
+
+    .modal-body p { margin-bottom: 1rem; }
+
+    .modal-meta {
+      margin-top: 1.5rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--parchment);
+      display: flex;
+      gap: 2rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .modal-meta-item span { font-weight: 600; color: var(--brown-deep); display: block; font-family: 'Playfair Display', serif; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      nav { padding: 0 1rem; }
+      .nav-links { gap: 1rem; }
+      .nav-links a { font-size: 0.75rem; }
+      section { padding: 3rem 1.25rem; }
+      .shelf { padding: 1.5rem 1.5rem 0; }
+      .favorites-info { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ── ENTRANCE ANIMATION ── */
+    @media (prefers-reduced-motion: no-preference) {
+      .fade-in {
+        opacity: 0;
+        transform: translateY(16px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+      }
+      .fade-in.visible { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">The Reading Corner</a>
+    <ul class="nav-links">
+      <li><a href="#reading">Reading</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#favorites">Favorites</a></li>
+      <li><a href="#tbr">TBR List</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <span class="hero-ornament">— ✦ —</span>
+    <h1>The Reading<br/><em>Corner</em></h1>
+    <p class="hero-tagline">A quiet place for stories, slow pages,<br>and the books that stay with you.</p>
+    <div class="hero-divider"></div>
+  </header>
+
+  <!-- CURRENTLY READING -->
+  <section id="reading">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">On the Nightstand</span>
+        <h2 class="section-title">Currently Reading</h2>
+        <div class="ornament-line"><div class="ornament-diamond"></div></div>
+      </div>
+      <div class="reading-grid fade-in">
+
+        <div class="reading-card">
+          <div class="book-spine" style="background: linear-gradient(135deg, #3B4F6E, #2A3A55);">Demon Copperhead</div>
+          <div class="reading-info">
+            <div class="reading-badge">Now reading</div>
+            <div class="reading-title">Demon Copperhead</div>
+            <div class="reading-author">Barbara Kingsolver</div>
+            <div class="progress-bar-wrap"><div class="progress-bar" style="width:62%"></div></div>
+            <div class="progress-label">62% · Page 342 of 560</div>
+          </div>
+        </div>
+
+        <div class="reading-card">
+          <div class="book-spine" style="background: linear-gradient(135deg, #7B4F3A, #5C3324);">Piranesi</div>
+          <div class="reading-info">
+            <div class="reading-badge">Also reading</div>
+            <div class="reading-title">Piranesi</div>
+            <div class="reading-author">Susanna Clarke</div>
+            <div class="progress-bar-wrap"><div class="progress-bar" style="width:28%"></div></div>
+            <div class="progress-label">28% · Page 53 of 272</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section id="reviews">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">What I've Been Reading</span>
+        <h2 class="section-title">Book Reviews</h2>
+        <p class="section-subtitle">Honest, heartfelt thoughts on everything I finish.</p>
+        <div class="ornament-line"><div class="ornament-diamond"></div></div>
+      </div>
+      <div class="reviews-grid fade-in" id="reviews-grid"></div>
+    </div>
+  </section>
+
+  <!-- FAVORITES -->
+  <section id="favorites">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">All-Time</span>
+        <h2 class="section-title">Favorite Books</h2>
+        <p class="section-subtitle">The ones I'd press into your hands without a second thought.</p>
+        <div class="ornament-line"><div class="ornament-diamond"></div></div>
+      </div>
+
+      <div class="shelf fade-in">
+        <div class="shelf-books" id="shelf-books"></div>
+      </div>
+
+      <div class="favorites-info fade-in" id="favorites-info"></div>
+    </div>
+  </section>
+
+  <!-- TBR -->
+  <section id="tbr">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">The Pile Grows</span>
+        <h2 class="section-title">To Be Read</h2>
+        <p class="section-subtitle">Books I'm excited to get to — eventually.</p>
+        <div class="ornament-line"><div class="ornament-diamond"></div></div>
+      </div>
+      <div class="tbr-grid fade-in" id="tbr-grid"></div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">The Reading Corner</div>
+    <div class="footer-tagline">Finding magic between the pages, one book at a time.</div>
+    <div class="footer-divider"></div>
+    <div class="footer-copy">Made with love &amp; tea &nbsp;·&nbsp; &copy; 2026</div>
+  </footer>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+    <div class="modal" id="modal">
+      <button class="modal-close" onclick="closeModal(null)">✕</button>
+      <div id="modal-content"></div>
+    </div>
+  </div>
+
+  <script>
+    const REVIEWS = [
+      {
+        title: "The Midnight Library",
+        author: "Matt Haig",
+        genre: "Literary Fiction",
+        genreColor: "#E8F0E8",
+        genreText: "#4A5E45",
+        coverColor: ["#4A6741", "#364E33"],
+        stars: 5,
+        excerpt: "A stunning meditation on regret, possibility, and the life we choose. Haig has a gift for making grand philosophical ideas feel utterly personal — I cried twice, and I'd do it again. The kind of book that follows you around for weeks after you've closed it.",
+        fullReview: "Matt Haig's 'The Midnight Library' begins with a simple premise: what if you could live every life you didn't choose? But what it becomes is something far more profound — a compassionate, luminous exploration of what it means to be alive.\n\nNora Seed, our protagonist, finds herself in a vast library between life and death, where each book represents an alternate version of her life. Each choice she didn't make. Haig navigates these parallel realities with remarkable deftness, never letting the concept become a gimmick.\n\nWhat struck me most was the book's refusal to be precious about its big ideas. It doesn't lecture; it shows. The grief is real, the hope is earned, and by the end I felt something rare — genuinely altered by a reading experience.\n\nThis is one of those books I'd recommend to almost anyone going through a hard time. It's gentle without being saccharine, hopeful without being naïve.",
+        pages: 304,
+        year: 2020,
+        date: "March 2026"
+      },
+      {
+        title: "Normal People",
+        author: "Sally Rooney",
+        genre: "Contemporary",
+        genreColor: "#F0E8E8",
+        genreText: "#7A3535",
+        coverColor: ["#C9453F", "#A03530"],
+        stars: 4,
+        excerpt: "Rooney writes the interior life of young people with an almost uncomfortable precision. I found myself nodding along at things I'd never quite found words for. The prose is spare and cool on the surface, but devastatingly warm underneath — a love story and an anatomy of miscommunication in equal measure.",
+        fullReview: "Sally Rooney's 'Normal People' is a deceptively quiet book. On the surface it's a love story between two young Irish people — Connell and Marianne — but beneath that it's a meticulous excavation of class, communication, and the way we fail each other even when we're trying so hard not to.\n\nRooney's prose is famously austere — no quotation marks, stripped dialogue — and it takes about twenty pages to stop noticing the style and start just living inside it. Once you do, it's astonishing. She renders interiority with a precision that feels almost invasive.\n\nMy one reservation is that I occasionally found the miscommunications between Connell and Marianne slightly contrived. But then I remembered being twenty-three, and the reservations dissolved.\n\nIt's a book about two people who see each other more clearly than anyone else does, and the tragedy of how hard that still isn't enough. Quietly devastating.",
+        pages: 288,
+        year: 2018,
+        date: "January 2026"
+      },
+      {
+        title: "Pachinko",
+        author: "Min Jin Lee",
+        genre: "Historical Fiction",
+        genreColor: "#FFF4E0",
+        genreText: "#7A5E20",
+        coverColor: ["#C9963B", "#9B6E25"],
+        stars: 5,
+        excerpt: "One of those rare novels that earns the word 'epic.' Four generations of a Korean family in Japan — love, loss, discrimination, and extraordinary resilience. Lee's prose is patient and unadorned, which makes the emotional punches land all the harder. I thought about this book for weeks.",
+        fullReview: "Min Jin Lee's 'Pachinko' is a novel of such scope and emotional force that it's hard to know where to begin. Beginning in early 1900s Korea and ending in 1980s Japan, it follows four generations of one family navigating the brutal reality of being Korean in Japan — a history of discrimination, resilience, and identity that I knew little about before reading.\n\nThe genius of the novel is its restraint. Lee doesn't editorialize or instruct. She simply shows us these lives, in all their complexity, love, compromise, and quiet heroism. The effect is cumulative and devastating.\n\nSunja, the matriarch whose secret becomes the family's foundation, is one of the great characters in recent fiction. But so are Noa, Mozasu, Solomon — each generation rendered with full complexity.\n\nThis is a book about survival, about what we inherit, and about what we choose. It expanded my world. Read it.",
+        pages: 496,
+        year: 2017,
+        date: "December 2025"
+      },
+      {
+        title: "Klara and the Sun",
+        author: "Kazuo Ishiguro",
+        genre: "Science Fiction",
+        genreColor: "#E8EEF8",
+        genreText: "#2A4070",
+        coverColor: ["#3B5998", "#2A3F6E"],
+        stars: 4,
+        excerpt: "Ishiguro uses science fiction to ask the oldest questions — what is love, what is a soul, what do we owe each other? Told through the eyes of an Artificial Friend, it's tender, unsettling, and quietly heartbreaking. The Sun as a religious figure is one of the most original conceits I've encountered in years.",
+        fullReview: "Kazuo Ishiguro is a writer who knows that the most profound truths reveal themselves obliquely. 'Klara and the Sun' — narrated by Klara, an Artificial Friend observing the world from a shop window and then from inside a family's home — is a masterpiece of indirection.\n\nOn the surface, it's a gentle near-future story about a girl, her AI companion, and her mother's ambitions. But Ishiguro is doing something more radical: asking what consciousness is, what love is, and whether a being designed to observe and serve might understand love more purely than those who take it for granted.\n\nKlara's voice is one of the most original in recent fiction — curious, earnest, precise, with gaps in her understanding that become the most revealing spaces in the novel.\n\nThe ending left me sitting quietly for some time. Not sad, exactly. Something more complex than that.",
+        pages: 307,
+        year: 2021,
+        date: "October 2025"
+      },
+      {
+        title: "Tomorrow, and Tomorrow, and Tomorrow",
+        author: "Gabrielle Zevin",
+        genre: "Literary Fiction",
+        genreColor: "#F0EAF8",
+        genreText: "#5A3578",
+        coverColor: ["#7B52A8", "#5C3A88"],
+        stars: 5,
+        excerpt: "A thirty-year love story about two people who make video games together — it sounds niche but it's actually about creativity, collaboration, ambition, and the different ways we can love someone. The best novel I read last year. Zevin earns every one of its 400 pages and then some.",
+        fullReview: "Gabrielle Zevin's 'Tomorrow, and Tomorrow, and Tomorrow' opens with two people meeting on a train platform and builds into one of the most emotionally rich novels I've read in years. It's a book about video games the way 'The Great Gatsby' is a book about parties.\n\nSam and Sadie meet as children and create a bond so particular and private that no romantic label fits it — though the novel is thoroughly a love story. Zevin traces their lives across thirty years, through games made and unmade, triumphs and betrayals, grief and reinvention.\n\nThe games are rendered with real craft and affection — Zevin clearly loves the medium — but the book never requires you to share that love. It's using games to explore creativity, collaboration, authorship, failure, and what we make when we make something together.\n\nBy the final act I was reading with my breath slightly held. An extraordinary novel.",
+        pages: 416,
+        year: 2022,
+        date: "September 2025"
+      },
+      {
+        title: "Hamnet",
+        author: "Maggie O'Farrell",
+        genre: "Historical Fiction",
+        genreColor: "#FFF4E0",
+        genreText: "#7A5E20",
+        coverColor: ["#7A5230", "#5C3A1E"],
+        stars: 5,
+        excerpt: "The story of Shakespeare's son who died at eleven — but really, the story of grief, marriage, and a mother's love. O'Farrell's prose is like nothing else I've read: dense and luminous at once, every sentence considered. I read the last fifty pages with tears streaming down my face.",
+        fullReview: "Maggie O'Farrell's 'Hamnet' begins with a boy looking for someone to help his sick sister, and never quite releases its grip on you from that first page.\n\nThe novel imagines the death of Shakespeare's son Hamnet and its aftermath, centering not the famous playwright (unnamed throughout) but Agnes, his remarkable wife. O'Farrell gives her a full inner life, a wildness, a power of perception that feels simultaneously mythic and utterly real.\n\nThe prose is extraordinary — circling, hypnotic, building scenes through accumulation of sensory detail in a way that makes the world fully present. The chapter tracing the plague's journey from Alexandria to Stratford is one of the great set-pieces in recent literary fiction.\n\nAnd the grief at the novel's heart is rendered with such honesty and care that I found myself weeping in a way that felt like a gift rather than an imposition.\n\nOne of the finest novels of this decade.",
+        pages: 372,
+        year: 2020,
+        date: "July 2025"
+      }
+    ];
+
+    const FAVORITES = [
+      { title: "The Secret History", author: "Donna Tartt", color: ["#2A3A55", "#1E2E45"], short: "Secret History" },
+      { title: "Middlemarch", author: "George Eliot", color: ["#5C3A1E", "#4A2C14"], short: "Middlemarch" },
+      { title: "A Little Life", author: "Hanya Yanagihara", color: ["#1A1A2E", "#12122A"], short: "A Little Life" },
+      { title: "Pachinko", author: "Min Jin Lee", color: ["#9B6E25", "#7A5218"], short: "Pachinko" },
+      { title: "Never Let Me Go", author: "Kazuo Ishiguro", color: ["#4A5E45", "#363E32"], short: "Never Let Me Go" },
+      { title: "Rebecca", author: "Daphne du Maurier", color: ["#6B3A3A", "#542828"], short: "Rebecca" },
+      { title: "Beloved", author: "Toni Morrison", color: ["#7B3A2A", "#5C2A1E"], short: "Beloved" },
+    ];
+
+    const TBR = [
+      { title: "The Women", author: "Kristin Hannah", genre: "Historical Fiction" },
+      { title: "James", author: "Percival Everett", genre: "Literary Fiction" },
+      { title: "All Fours", author: "Miranda July", genre: "Contemporary" },
+      { title: "The Familiar", author: "Leigh Bardugo", genre: "Fantasy" },
+      { title: "Say Nothing", author: "Patrick Radden Keefe", genre: "Non-Fiction" },
+      { title: "Intermezzo", author: "Sally Rooney", genre: "Literary Fiction" },
+      { title: "The God of the Woods", author: "Lauren Fox", genre: "Mystery" },
+      { title: "Long Island Compromise", author: "Taffy Brodesser-Akner", genre: "Literary Fiction" },
+      { title: "Small Things Like These", author: "Claire Keegan", genre: "Literary Fiction" },
+      { title: "The Fraud", author: "Zadie Smith", genre: "Historical Fiction" },
+      { title: "North Woods", author: "Daniel Mason", genre: "Literary Fiction" },
+      { title: "Orbital", author: "Samantha Harvey", genre: "Literary Fiction" },
+    ];
+
+    function starHTML(count) {
+      let html = '';
+      for (let i = 1; i <= 5; i++) {
+        html += `<span class="star ${i <= count ? 'filled' : 'empty'}">★</span>`;
+      }
+      return html;
+    }
+
+    // Render reviews
+    const reviewsGrid = document.getElementById('reviews-grid');
+    REVIEWS.forEach((r, i) => {
+      const card = document.createElement('div');
+      card.className = 'review-card';
+      card.innerHTML = `
+        <div class="review-card-cover" style="background:linear-gradient(160deg, ${r.coverColor[0]}22, ${r.coverColor[1]}44)">
+          <div class="cover-book" style="background:linear-gradient(160deg, ${r.coverColor[0]}, ${r.coverColor[1]})">
+            <div class="cover-title">${r.title}</div>
+          </div>
+        </div>
+        <div class="review-card-body">
+          <span class="genre-tag" style="background:${r.genreColor};color:${r.genreText}">${r.genre}</span>
+          <div class="review-title">${r.title}</div>
+          <div class="review-author">by ${r.author}</div>
+          <div class="star-rating">${starHTML(r.stars)}</div>
+          <div class="review-excerpt">${r.excerpt}</div>
+          <a href="#" class="read-more" onclick="openModal(${i});return false;">Read full review →</a>
+        </div>`;
+      reviewsGrid.appendChild(card);
+    });
+
+    // Render shelf
+    const shelfBooks = document.getElementById('shelf-books');
+    const favInfo = document.getElementById('favorites-info');
+    FAVORITES.forEach((f, i) => {
+      const heights = [160, 148, 172, 155, 165, 145, 168];
+      const widths  = [42, 36, 50, 44, 38, 40, 46];
+      const h = heights[i % heights.length];
+      const w = widths[i % widths.length];
+      const spineEl = document.createElement('div');
+      spineEl.className = 'shelf-book';
+      spineEl.innerHTML = `<div class="shelf-book-spine" style="height:${h}px;width:${w}px;background:linear-gradient(180deg,${f.color[0]},${f.color[1]})">${f.short}</div>`;
+      spineEl.onclick = () => scrollToFav(i);
+      shelfBooks.appendChild(spineEl);
+
+      const card = document.createElement('div');
+      card.className = 'fav-card';
+      card.innerHTML = `
+        <div class="fav-number">0${i+1}</div>
+        <div class="fav-title">${f.title}</div>
+        <div class="fav-author">by ${f.author}</div>`;
+      favInfo.appendChild(card);
+    });
+
+    // Render TBR
+    const tbrGrid = document.getElementById('tbr-grid');
+    TBR.forEach((t) => {
+      const item = document.createElement('div');
+      item.className = 'tbr-item';
+      const check = document.createElement('div');
+      check.className = 'tbr-check';
+      check.onclick = () => check.classList.toggle('checked');
+      item.appendChild(check);
+      const info = document.createElement('div');
+      info.className = 'tbr-info';
+      info.innerHTML = `<div class="tbr-title">${t.title}</div><div class="tbr-author">${t.author}</div><div class="tbr-genre">${t.genre}</div>`;
+      item.appendChild(info);
+      tbrGrid.appendChild(item);
+    });
+
+    // Modal
+    function openModal(idx) {
+      const r = REVIEWS[idx];
+      const overlay = document.getElementById('modal-overlay');
+      const paragraphs = r.fullReview.split('\n\n').map(p => `<p>${p}</p>`).join('');
+      document.getElementById('modal-content').innerHTML = `
+        <span class="modal-genre" style="background:${r.genreColor};color:${r.genreText}">${r.genre}</span>
+        <div class="modal-title">${r.title}</div>
+        <div class="modal-author">by ${r.author}</div>
+        <div class="modal-stars">${starHTML(r.stars)}</div>
+        <div class="modal-body">${paragraphs}</div>
+        <div class="modal-meta">
+          <div class="modal-meta-item"><span>${r.pages}</span>Pages</div>
+          <div class="modal-meta-item"><span>${r.year}</span>Published</div>
+          <div class="modal-meta-item"><span>${r.date}</span>Read</div>
+        </div>`;
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(e) {
+      if (e && e.target !== document.getElementById('modal-overlay')) return;
+      document.getElementById('modal-overlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(null); });
+
+    // Scroll-triggered fade-in
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    function scrollToFav(i) {
+      document.getElementById('favorites').scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
